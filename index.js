@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded',function(){
 function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
-        <div class="col-4 results">
+        <div class="col-lg-4 col-md-6 col-sm-12 results">
         <div class="card bg-dark text-white text-center" style="width: 18rem;">
             <img class="card-img" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
             <div class="card-body">

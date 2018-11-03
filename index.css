@@ -1,16 +1,37 @@
 body {
-	background-color: #B2E9FD;
+	background-image: linear-gradient(grey,black);
+	min-height: 100vh;
 }
 
 .header h2 {
-	color: #DC4247;
+	color: white;
 }
 
 .header p {
-	color: #50524F;
+	color: white;
 }
 
 .results {
 	margin-top: 20px;
 }
 
+.no-gutters {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+.card {
+	border: 1px solid rgb(68, 68, 68);
+}
+
+#pageDivider {
+	/* padding-top: 20px; */
+	border-top: 1px solid rgb(68, 68, 68);
+}
+
+.card-footer:hover {
+	background-color: #dc3545;
+	border-color: #dc3545;
+	color: white;
+	font: bold;
+}

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded',function(){
         } else {
             console.log('rendering search')
             resultsContainer.innerHTML = renderMovies(filteredData) + 
-            `<div class="col-12 text-center text-white-50 m-5 p-3" id="pageDivider">
+            `<div class="col-12 text-center text-white-50 mt-5 mb-5 pt-3 pb-3" id="pageDivider">
             <h2>Other Movies You Might Enjoy</h2>
             </div>` + 
             renderMovies(movieData)

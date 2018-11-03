@@ -30,7 +30,7 @@ function renderMovies (movies) {
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
         <div class="card bg-dark text-white text-center" style="width: 18rem;">
-            <img class="card-img" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
+            <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">${currentMovie.Title}</h5>
                 <p class="card-text">${currentMovie.Year}</p>

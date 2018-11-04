@@ -26,6 +26,7 @@ body {
 
 .card {
 	border: 1px solid rgb(68, 68, 68);
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
 }
 
 #pageDivider {

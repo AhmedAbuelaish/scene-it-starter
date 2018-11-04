@@ -32,16 +32,18 @@ function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
-        <div class="card bg-dark text-white text-center" style="width: 18rem;">
-            <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">${currentMovie.Title}</h5>
-                <p class="card-text">${currentMovie.Year}</p>
+            <div class="card bg-dark text-white text-center" style="width: 18rem;">
+                <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
+                <div class="overlay btn"></div>
+                <div class="btn1 btn"><p>+</p></div>
+                <div class="card-body">
+                    <h5 class="card-title">${currentMovie.Title}</h5>
+                    <p class="card-text">${currentMovie.Year}</p>
+                </div>
+                <div class="card-footer text-white-50 btn">
+                    Save to Collection
+                </div>
             </div>
-            <div class="card-footer text-white-50 btn">
-                Save to Collection
-            </div>
-        </div>
         </div>
         `
     return resultsHTML 

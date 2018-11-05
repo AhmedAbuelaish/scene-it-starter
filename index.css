@@ -45,6 +45,17 @@ footer {
 	margin-top: 100px;
 }
 
+/* ~~~~~~~~~~~~~~~~~~Alerts~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.alert {
+	position: fixed;
+	width: 100vw;
+	text-align: center;
+	z-index: 2;
+	top: 0.5em;
+	opacity: 0.9;
+}
+
 
 /* ~~~~~~~~~~~~~~~~~~This is overlay stuff~~~~~~~~~~~~` */
 

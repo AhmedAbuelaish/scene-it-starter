@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('search-form').addEventListener('input', searchMovies)
     document.getElementById('search-form').addEventListener('submit', searchMovies)
 
+})
+
 function searchMovies (e) {
     e.preventDefault()
     var searchString = e.target.value.toLowerCase();
@@ -45,7 +47,7 @@ function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
-            <div class="card bg-dark text-white text-center" style="width: 18rem;">
+            <div class="card bg-dark text-white text-center" style="width: 18rem;" onclick="removeFromWatchlist('${currentMovie.imdbID}')">
                 <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>-</p></div>
@@ -67,5 +69,20 @@ function renderMovies (movies) {
 
   }
 
-})
+function removeFromWatchlist (movieID) {
 
+    // Get the watchlist from local storage as JSON & parse it
+    var watchlistJSON = localStorage.getItem('watchlist')
+    var watchlist = JSON.parse(watchlistJSON)
+
+    if (watchlist == null){watchlist = []}
+
+    // ~~~create a new array for all elements in watchlist that do not have selected imbdID~~~~~
+    watchlist = watchlist.filter(function(movie){return movie.imdbID !== movieID})
+
+    // Convert watchlist back into JSON & save it to local storage
+    watchlistJSON = JSON.stringify(watchlist)
+    localStorage.setItem('watchlist',watchlistJSON)
+
+    resultsContainer.innerHTML = renderMovies(watchlist)
+}

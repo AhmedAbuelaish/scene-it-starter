@@ -25,15 +25,19 @@ document.addEventListener('DOMContentLoaded',function(){
 function searchMovies (e) {
     e.preventDefault()
     var searchString = e.target.value.toLowerCase();
-    var filteredData = watchlist.filter(function(movie){
+    var filteredData = watchlist.filter(findStringInMovie)
+
+    function findStringInMovie(movie){
         var foundInName = movie.Title.toLowerCase().indexOf(searchString) > -1;
         var foundInDate = movie.Year.toLowerCase().indexOf(searchString) > -1;
         return foundInName || foundInDate;
-    })
+    }
+
     if (e.target.value == ''){
         console.log('rendering movies')
         resultsContainer.innerHTML = renderMovies(watchlist)
     } else {
+        console.log(watchlist)
         console.log('rendering search')
         resultsContainer.innerHTML = renderMovies(filteredData) + 
         `<div class="col-12 text-center text-white-50 mt-5 mb-5 pt-3 pb-3" id="pageDivider">
@@ -47,7 +51,7 @@ function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
-            <div class="card bg-dark text-white text-center" style="width: 18rem;" onclick="removeFromWatchlist('${currentMovie.imdbID}')">
+            <div class="card bg-dark text-white text-center" style="width: 18rem; margin: auto;" onclick="removeFromWatchlist('${currentMovie.imdbID}')">
                 <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>-</p></div>

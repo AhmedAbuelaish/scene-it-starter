@@ -9,15 +9,28 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('search-form').addEventListener('input', searchMovies)
     document.getElementById('search-form').addEventListener('submit', searchMovies)
     
+})
+
+
 
 function searchMovies (e) {
     e.preventDefault()
+
+
+
+
+    
     var searchString = e.target.value.toLowerCase();
-    var filteredData = movieData.filter(function(movie){
+    var filteredData = movieData.filter(findStringInMovie)
+    // var remainderData = movieData.filter(findStringInMovie)
+    // ~~~~~todo: need to make this inverse the boolean result of findStringInMovie and return an array of nonsearch results
+
+    function findStringInMovie(movie){
         var foundInName = movie.Title.toLowerCase().indexOf(searchString) > -1;
         var foundInDate = movie.Year.toLowerCase().indexOf(searchString) > -1;
         return foundInName || foundInDate;
-    })
+    }
+
     if (e.target.value == ''){
         console.log('rendering movies')
         resultsContainer.innerHTML = renderMovies(movieData)
@@ -35,7 +48,7 @@ function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
-            <div class="card bg-dark text-white text-center" style="width: 18rem;" onclick="saveToWatchlist('${currentMovie.imdbID}')">
+            <div class="card bg-dark text-white text-center" style="width: 18rem; margin: auto;" onclick="saveToWatchlist('${currentMovie.imdbID}')">
                 <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>+</p></div>
@@ -56,8 +69,6 @@ function renderMovies (movies) {
     return resultsHTML.join('')
 
   }
-
-})
 
 
 

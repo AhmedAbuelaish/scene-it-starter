@@ -1,54 +1,44 @@
 
+
 var resultsContainer = document.getElementById('resultsContainer')
 var alertsContainer = document.getElementById('alertsContainer')
 var movieData = []
+const defaultPhoto = 'no_image.png'
 
 document.addEventListener('DOMContentLoaded',function(){
     resultsContainer.innerHTML = renderMovies(movieData)
 
-    document.getElementById('search-form').addEventListener('input', searchMovies)
+    // document.getElementById('search-form').addEventListener('input', searchMovies)
     document.getElementById('search-form').addEventListener('submit', searchMovies)
     
 })
 
-
-
 function searchMovies (e) {
     e.preventDefault()
-    var searchString = e.target.value.toLowerCase();
-    var filteredData = movieData.filter(findStringInMovie)
+
+    var searchString = document.getElementById('search-input').value
+    // var filteredData = movieData.filter(findStringInMovie)
     var urlEncodedSearchString = encodeURIComponent(searchString)
     var omdbAPIURL = 'http://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString
 
     console.log(searchString)
-    console.log(urlEncodedSearchString)
-    console.log(omdbAPIURL)
+    console.log('getting JSON data')
+    movieData = $.getJSON(omdbAPIURL, translateJSONResponse)
 
-    function findStringInMovie(movie){
-        var foundInName = movie.Title.toLowerCase().indexOf(searchString) > -1;
-        var foundInDate = movie.Year.toLowerCase().indexOf(searchString) > -1;
-        return foundInName || foundInDate;
-    }
-
-    if (e.target.value == ''){
-        console.log('rendering movies')
-        resultsContainer.innerHTML = renderMovies(movieData)
-    } else {
-        console.log('rendering search')
-        resultsContainer.innerHTML = renderMovies(filteredData) + 
-        `<div class="col-12 text-center text-white-50 mt-5 mb-5 pt-3 pb-3" id="pageDivider">
-        <h2>Other Movies You Might Enjoy</h2>
-        </div>` + 
-        renderMovies(movieData)
-    }
+    function translateJSONResponse (response){
+        resultsContainer.innerHTML = renderMovies(response.Search)
+    }    
 }
 
 function renderMovies (movies) {
-    var resultsHTML = movies.map(function (currentMovie){
+    console.log(movies)
+    var resultsHTML = movies.map(function (currentMovie){        
+        var posterPhoto = currentMovie.Poster
+        if (posterPhoto == "N/A"){posterPhoto = defaultPhoto}
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
             <div class="card bg-dark text-white text-center" style="width: 18rem; margin: auto;" onclick="saveToWatchlist('${currentMovie.imdbID}')">
-                <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
+                <img class="card-img img-responsive" src=${posterPhoto} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>+</p></div>
                 <div class="card-body">
@@ -67,6 +57,7 @@ function renderMovies (movies) {
     
     return resultsHTML.join('')
 
+    
   }
 
 
@@ -118,3 +109,4 @@ function clearAlerts () {
     console.log('clearing alert')
     alertsContainer.innerHTML = ""
 }
+

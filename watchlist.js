@@ -51,7 +51,7 @@ function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){
         var resultsHTML = `
         <div class="col-lg-4 col-md-6 col-sm-12 results">
-            <div class="card bg-dark text-white text-center" style="width: 18rem; margin: auto;" onclick="removeFromWatchlist('${currentMovie.imdbID}')">
+            <div class="card bg-dark text-white text-center" id="${currentMovie.imdbID}" style="width: 18rem; margin: auto;" onclick="removeFromWatchlist('${currentMovie.imdbID}')">
                 <img class="card-img img-responsive" src=${currentMovie.Poster} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>-</p></div>

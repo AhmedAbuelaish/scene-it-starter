@@ -1,7 +1,7 @@
 
 var resultsContainer = document.getElementById('resultsContainer')
 var alertsContainer = document.getElementById('alertsContainer')
-
+var movieData = []
 
 document.addEventListener('DOMContentLoaded',function(){
     resultsContainer.innerHTML = renderMovies(movieData)
@@ -15,15 +15,14 @@ document.addEventListener('DOMContentLoaded',function(){
 
 function searchMovies (e) {
     e.preventDefault()
-
-
-
-
-    
     var searchString = e.target.value.toLowerCase();
     var filteredData = movieData.filter(findStringInMovie)
-    // var remainderData = movieData.filter(findStringInMovie)
-    // ~~~~~todo: need to make this inverse the boolean result of findStringInMovie and return an array of nonsearch results
+    var urlEncodedSearchString = encodeURIComponent(searchString)
+    var omdbAPIURL = 'http://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString
+
+    console.log(searchString)
+    console.log(urlEncodedSearchString)
+    console.log(omdbAPIURL)
 
     function findStringInMovie(movie){
         var foundInName = movie.Title.toLowerCase().indexOf(searchString) > -1;

@@ -1,24 +1,33 @@
-
-
 var resultsContainer = document.getElementById('resultsContainer')
 var alertsContainer = document.getElementById('alertsContainer')
-var movieData = []
 const defaultPhoto = 'no_image.png'
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// INIT
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.addEventListener('DOMContentLoaded',function(){
     console.log('initializing version 3.0')
-    resultsContainer.innerHTML = renderMovies(movieData)
-
-    // document.getElementById('search-form').addEventListener('input', searchMovies)
-    document.getElementById('search-form').addEventListener('submit', searchMovies)
     
+    // initialize results container
+    var movieData = []
+    resultsContainer.innerHTML = renderMovies(movieData)
+    
+    // initialize watchlist
+    var watchlist = watchlistLocalToJSON()
+    if (watchlist == null){watchlist = []}
+    console.log(watchlist)
+
+    // search form event listener
+    document.getElementById('search-form').addEventListener('submit', searchMovies)
 })
 
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// SEARCH FUNCTION
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function searchMovies (e) {
     e.preventDefault()
-
     var searchString = document.getElementById('search-input').value
-    // var filteredData = movieData.filter(findStringInMovie)
     var urlEncodedSearchString = encodeURIComponent(searchString)
     var omdbAPIURL = 'https://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString
 
@@ -32,6 +41,9 @@ function searchMovies (e) {
     }    
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// RENDERING
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function renderMovies (movies) {
     var resultsHTML = movies.map(function (currentMovie){        
         var posterPhoto = currentMovie.Poster
@@ -51,25 +63,20 @@ function renderMovies (movies) {
             </div>
         `
     return resultsHTML 
-
     })
-
     return resultsHTML.join('')
+}
 
-  }
-
-
-
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// WATCHLIST
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function saveToWatchlist (movieID) {
-
     var savedMovie = movieData.find(function(currentMovie){
         return currentMovie.imdbID == movieID
     })
 
-    // Get the watchlist from local storage as JSON & parse it
-    var watchlistJSON = localStorage.getItem('watchlist')
-    var watchlist = JSON.parse(watchlistJSON)
-
+    // Get the watchlist from local storage
+    watchlist = watchlistLocalToJSON()
     if (watchlist == null){watchlist = []}
 
     // ~~~ if the movie is not already in watchlist, then push it in ~~~~~
@@ -82,12 +89,29 @@ function saveToWatchlist (movieID) {
         alertFailure(savedMovie)
     }
 
+    // Save Watchlist back to local storage
+    watchlistJSONToLocal(watchlist)
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// JSON UTILITIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function watchlistLocalToJSON (){
+    // Get the watchlist from local storage as JSON & parse it
+    var watchlistJSON = localStorage.getItem('watchlist')
+    var watchlist = JSON.parse(watchlistJSON)
+    return watchlist
+}
+
+function watchlistJSONToLocal (watchlist){
     // Convert watchlist back into JSON & save it to local storage
     watchlistJSON = JSON.stringify(watchlist)
     localStorage.setItem('watchlist',watchlistJSON)
-
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ALERTS
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function alertSuccess (movie) {
     alertsContainer.innerHTML = `
     <div class="alert alert-success" role="alert">

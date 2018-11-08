@@ -6,6 +6,7 @@ var movieData = []
 const defaultPhoto = 'no_image.png'
 
 document.addEventListener('DOMContentLoaded',function(){
+    console.log('initializing version 3.0')
     resultsContainer.innerHTML = renderMovies(movieData)
 
     // document.getElementById('search-form').addEventListener('input', searchMovies)
@@ -24,7 +25,6 @@ function searchMovies (e) {
     console.log(searchString)
     console.log('getting JSON data')
     $.getJSON(omdbAPIURL, translateJSONResponse)
-    console.log(omdbAPIURL)
     
     function translateJSONResponse (response){
         movieData = response.Search

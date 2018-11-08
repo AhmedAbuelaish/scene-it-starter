@@ -6,7 +6,7 @@ const defaultPhoto = 'no_image.png'
 // INIT
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 document.addEventListener('DOMContentLoaded',function(){
-    console.log('initializing version 3.0')
+    console.log('initializing version 3.1')
     
     // initialize results container
     var movieData = []
@@ -65,6 +65,12 @@ function renderMovies (movies) {
     return resultsHTML 
     })
     return resultsHTML.join('')
+}
+
+function renderMoviePages (movies) {
+    // todo: when scrolled to the bottom of the page, add a new render of movies
+    // keep track of pages
+    // display page numbers
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

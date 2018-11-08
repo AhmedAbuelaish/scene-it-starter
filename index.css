@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	background-image: linear-gradient(grey,black);
+	background-image: linear-gradient(rgb(78, 78, 78),black);
 	min-height: 100vh;
 }
 
@@ -19,19 +19,51 @@ body {
 	margin-top: 20px;
 }
 
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
+#pageDivider {
+	/* padding-top: 20px; */
+	border-top: 1px solid rgb(68, 68, 68);
 }
+
+/* ~~~~~~~~~~~~~~~~Card Styling~~~~~~~~~~~~ */
+
 
 .card {
 	border: 1px solid rgb(68, 68, 68);
 	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.4);
+	margin: 15px;
+	width: 90% !important;
 }
 
-#pageDivider {
-	/* padding-top: 20px; */
-	border-top: 1px solid rgb(68, 68, 68);
+.card-body {
+	padding: 1.0rem;
+}
+
+.card-columns {
+	align-content: center;
+}
+
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
 }
 
 .card:hover .card-footer { 
@@ -44,6 +76,8 @@ body {
 footer {
 	margin-top: 100px;
 }
+
+
 
 /* ~~~~~~~~~~~~~~~~~~Alerts~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 

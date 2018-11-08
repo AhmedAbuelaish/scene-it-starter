@@ -23,21 +23,20 @@ function searchMovies (e) {
 
     console.log(searchString)
     console.log('getting JSON data')
-    movieData = $.getJSON(omdbAPIURL, translateJSONResponse)
-
+    $.getJSON(omdbAPIURL, translateJSONResponse)
+    
     function translateJSONResponse (response){
-        resultsContainer.innerHTML = renderMovies(response.Search)
+        movieData = response.Search
+        resultsContainer.innerHTML = renderMovies(movieData)
     }    
 }
 
 function renderMovies (movies) {
-    console.log(movies)
     var resultsHTML = movies.map(function (currentMovie){        
         var posterPhoto = currentMovie.Poster
         if (posterPhoto == "N/A"){posterPhoto = defaultPhoto}
         var resultsHTML = `
-        <div class="col-lg-4 col-md-6 col-sm-12 results">
-            <div class="card bg-dark text-white text-center" style="width: 18rem; margin: auto;" onclick="saveToWatchlist('${currentMovie.imdbID}')">
+            <div class="card bg-dark text-white text-center" onclick="saveToWatchlist('${currentMovie.imdbID}')">
                 <img class="card-img img-responsive" src=${posterPhoto} alt=${currentMovie.Title} alt="Card image cap">
                 <div class="overlay btn"></div>
                 <div class="btn1 btn"><p>+</p></div>
@@ -45,24 +44,23 @@ function renderMovies (movies) {
                     <h5 class="card-title">${currentMovie.Title}</h5>
                     <p class="card-text">${currentMovie.Year}</p>
                 </div>
-                <div class="card-footer text-white-50 btn">
+                <div class="card-footer text-white-50">
                     Save to Collection
                 </div>
             </div>
-        </div>
         `
     return resultsHTML 
 
     })
-    
+
     return resultsHTML.join('')
 
-    
   }
 
 
 
 function saveToWatchlist (movieID) {
+
     var savedMovie = movieData.find(function(currentMovie){
         return currentMovie.imdbID == movieID
     })

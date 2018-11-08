@@ -24,6 +24,7 @@ function searchMovies (e) {
     console.log(searchString)
     console.log('getting JSON data')
     $.getJSON(omdbAPIURL, translateJSONResponse)
+    console.log(omdbAPIURL)
     
     function translateJSONResponse (response){
         movieData = response.Search

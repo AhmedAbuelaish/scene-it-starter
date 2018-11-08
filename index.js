@@ -19,7 +19,7 @@ function searchMovies (e) {
     var searchString = document.getElementById('search-input').value
     // var filteredData = movieData.filter(findStringInMovie)
     var urlEncodedSearchString = encodeURIComponent(searchString)
-    var omdbAPIURL = 'http://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString
+    var omdbAPIURL = 'https://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString
 
     console.log(searchString)
     console.log('getting JSON data')
